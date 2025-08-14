@@ -129,8 +129,8 @@ type HoldingResponse struct {
 	OneDayReturns           float64               `json:"OneDayReturns"`
 	OneDayReturnsPercentage float64               `json:"OneDayReturnsPercentage"`
 	Folios                  []HoldingReportScheme `json:"Folios"`
-	BseScheme               BseSchemeDetail       `json:"BseScheme"`
-	CmotsScheme             SchemeMaster          `json:"CmotsScheme"`
+	BseScheme               *BseSchemeDetail      `json:"BseScheme,omitempty"`
+	CmotsScheme             *SchemeMaster         `json:"CmotsScheme,omitempty"`
 	IsinXirr                float64               `json:"IsinXirr"`
 }
 
