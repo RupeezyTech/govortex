@@ -61,6 +61,22 @@ const (
 
 	URITags string = "/reports/tags"
 	URITag  string = "/reports/tags/%d"
+
+	URIAlerts string = "/alerts"
+	URIAlert  string = "/alerts/%d"
+
+	URIBaskets string = "/basket"
+	URIBasket  string = "/basket/%d"
+
+	URIMfHoldings         string = "/mf/holdings"
+	URIFundDetails        string = "/mf/fund/details"
+	URIMfFunds            string = "/mf/fund"
+	URIFundMainCategories string = "/mf/fund/mainCategories"
+	URIFundCategories     string = "/mf/fund/categories"
+	URIFundNavs           string = "/mf/fund/navs"
+	URIPortfolioOverlap   string = "/mf/fund/portfolio-overlap"
+	URIPortfolioImpact    string = "/mf/fund/portfolio-impact"
+	URIMFSips             string = "/mf/purchases/synthetic/plan"
 )
 
 // VortexApi is a struct representing the Vortex API client
@@ -100,6 +116,9 @@ func (v *VortexApi) SetHTTPClient(h *http.Client) {
 }
 func (v *VortexApi) SetAccessToken(accessToken string) {
 	v.AccessToken = accessToken
+}
+func (v *VortexApi) SetBaseUrl(newBaseUrl string) {
+	v.baseURL = newBaseUrl
 }
 
 // GetLoginUrl returns the login URL for the Vortex API

@@ -219,6 +219,26 @@ const (
 	ExchangeTypesMCX         ExchangeTypes = "MCX_FO"
 )
 
+type marketSegmentId int
+
+const (
+	marketSegmentIdNSEEQ marketSegmentId = 1
+	marketSegmentIdNSEFO marketSegmentId = 2
+	marketSegmentIdBSEEQ marketSegmentId = 3
+	marketSegmentIdBSEFO marketSegmentId = 4
+	marketSegmentIdMCXFO marketSegmentId = 5
+	marketSegmentIdNSECD marketSegmentId = 13
+)
+
+var exchangeToMarketSegmentId = map[ExchangeTypes]marketSegmentId{
+	ExchangeTypesNSEEQUITY:   marketSegmentIdNSEEQ,
+	ExchangeTypesNSEFO:       marketSegmentIdNSEFO,
+	ExchangeTypesBSEEQUITY:   marketSegmentIdBSEEQ,
+	ExchangeTypesBSEFO:       marketSegmentIdBSEFO,
+	ExchangeTypesMCX:         marketSegmentIdMCXFO,
+	ExchangeTypesNSECURRENCY: marketSegmentIdNSECD,
+}
+
 type OrderStatus string
 
 const (
@@ -243,6 +263,7 @@ const (
 	ProductTypesIntraday ProductTypes = "INTRADAY"
 	ProductTypesDelivery ProductTypes = "DELIVERY"
 	ProductTypesMTF      ProductTypes = "MTF"
+	ProductTypesBTST     ProductTypes = "BTST"
 )
 
 type VarietyTypes string
@@ -523,6 +544,7 @@ type GttOrderResponseOrders struct {
 	CreatedAt       time.Time        `json:"created_at"`
 	UpdatedAt       time.Time        `json:"updated_at"`
 	TrigerredAt     time.Time        `json:"trigerred_at"`
+	Trail           *Trail           `json:"trail,omitempty"`
 }
 
 type GttOrderStatus string

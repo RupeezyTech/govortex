@@ -3,6 +3,7 @@ package govortex
 import (
 	"bytes"
 	"context"
+
 	"encoding/json"
 	"io"
 	"io/ioutil"
@@ -172,7 +173,7 @@ func (h *httpClient) doJSON(ctx context.Context, method, rURL string, reqBody in
 			h.hLog.Printf(string(resp.Body))
 			h.hLog.Printf("Error parsing JSON response: %v | %s", err, resp.Body)
 		}
-		return resp, NewError(DataError, "Error parsing response.", nil)
+		return resp, NewError(DataError, "Error parsing response: "+err.Error(), nil)
 	}
 	if h.debug {
 		h.hLog.Printf(string(resp.Body))
