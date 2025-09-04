@@ -44,7 +44,7 @@ const (
 	URIWithdrawal   string = "/user/funds/withdrawal"
 	URIOrderMargin  string = "/margins/order"
 	URIBasketMargin string = "/margins/basket"
-	URIQuotes       string = "/data/quote"
+	URIQuotes       string = "/data/quotes"
 	URIHistory      string = "/data/history"
 
 	URIOptionChain string = "/strategies/option_chain"
