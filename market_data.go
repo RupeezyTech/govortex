@@ -11,14 +11,13 @@ import (
 // It takes a context, a slice of instrument names, and a quote mode as input.
 // It returns a QuoteResponse and an error.
 func (v *VortexApi) Quotes(ctx context.Context, instruments []string, mode QuoteModes) (*QuoteResponse, error) {
-	endpoint := "/data/quote"
 	params := url.Values{}
 	for i := 0; i < len(instruments); i++ {
 		params.Add("q", instruments[i])
 	}
 	params.Add("mode", string(mode))
 	var resp QuoteResponse
-	_, err := v.doJson(ctx, "GET", endpoint, nil, params, nil, &resp)
+	_, err := v.doJson(ctx, "GET", URIQuotes, nil, params, nil, &resp)
 	if err != nil {
 		return nil, err
 	}
