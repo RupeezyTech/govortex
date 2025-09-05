@@ -6,21 +6,69 @@ import (
 
 // PlaceOrderRequest represents a request to place an order.
 type PlaceOrderRequest struct {
-	Exchange          ExchangeTypes    `json:"exchange"`           // Required: Exchange type.
-	Token             int              `json:"token"`              // Required: Token of the underlying instrument.
-	TransactionType   TransactionTypes `json:"transaction_type"`   // Required: Type of transaction.
-	Product           ProductTypes     `json:"product"`            // Required: Type of product.
-	Variety           VarietyTypes     `json:"variety"`            // Required: Type of variety.
-	Quantity          int              `json:"quantity"`           // Required: Quantity of the order.
-	Price             float64          `json:"price"`              // Optional if market order. Price of the order.
-	TriggerPrice      float64          `json:"trigger_price"`      // Optional if not stoploss order. Trigger price for the order.
-	OrderIdentifier   string           `json:"order_identifier"`   // Optional: Your identifier for the order.
-	DisclosedQuantity int              `json:"disclosed_quantity"` // Optional: Disclosed quantity for the order.
-	Validity          ValidityTypes    `json:"validity"`           // Required: Validity type for the order.
-	ValidityDays      int              `json:"validity_days"`      // Optional: Number of validity days.
-	IsAMO             bool             `json:"is_amo"`             // Optional: Flag indicating if the order is an after-market order.
-	Gtt               *GttLegs         `json:"gtt"`                // Optional: Good 'til Triggered (GTT) legs.
-	TagIds            []int            `json:"tag_ids"`            // Optional: IDs of tags associated with the order.
+	// Ticker of the instrument.
+	// Required if Exchange/Token are not provided. This will be the preferred input going forward.
+	Ticker string `json:"ticker"`
+
+	// Exchange type.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Exchange ExchangeTypes `json:"exchange"`
+
+	// Token of the underlying instrument.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Token int `json:"token"`
+
+	// Type of transaction.
+	// Required.
+	TransactionType TransactionTypes `json:"transaction_type"`
+
+	// Type of product.
+	// Required.
+	Product ProductTypes `json:"product"`
+
+	// Type of variety.
+	// Required.
+	Variety VarietyTypes `json:"variety"`
+
+	// Quantity of the order.
+	// Required.
+	Quantity int `json:"quantity"`
+
+	// Price of the order.
+	// Optional if market order.
+	Price float64 `json:"price"`
+
+	// Trigger price for the order.
+	// Optional if not stoploss order.
+	TriggerPrice float64 `json:"trigger_price"`
+
+	// Your identifier for the order.
+	// Optional.
+	OrderIdentifier string `json:"order_identifier"`
+
+	// Disclosed quantity for the order.
+	// Optional.
+	DisclosedQuantity int `json:"disclosed_quantity"`
+
+	// Validity type for the order.
+	// Required.
+	Validity ValidityTypes `json:"validity"`
+
+	// Number of validity days.
+	// Optional.
+	ValidityDays int `json:"validity_days"`
+
+	// Flag indicating if the order is an after-market order.
+	// Optional.
+	IsAMO bool `json:"is_amo"`
+
+	// Good 'til Triggered (GTT) legs.
+	// Optional.
+	Gtt *GttLegs `json:"gtt"`
+
+	// IDs of tags associated with the order.
+	// Optional.
+	TagIds []int `json:"tag_ids"`
 }
 
 // GttLegs represents legs of a Good 'til Triggered (GTT) order.
@@ -47,19 +95,53 @@ type ModifyOrderRequest struct {
 
 // OrderMarginRequest represents a request to calculate margin for an order.
 type OrderMarginRequest struct {
-	Exchange        ExchangeTypes    `json:"exchange"`         // Required: Exchange type.
-	Token           int              `json:"token"`            // Required: Token of the underlying instrument.
-	TransactionType TransactionTypes `json:"transaction_type"` // Required: Type of transaction.
-	Product         ProductTypes     `json:"product"`          // Required: Type of product.
-	Variety         VarietyTypes     `json:"variety"`          // Required: Type of variety.
-	Quantity        int              `json:"quantity"`         // Required: Quantity of the order.
-	Price           float64          `json:"price"`            // Required: Price of the order.
-	OldPrice        float64          `json:"old_price"`        // Required: Old price of the order.
-	OldQuantity     int              `json:"old_quantity"`     // Required: Old quantity of the order.
-	Mode            MarginModes      `json:"mode"`             // Required: Mode of margin calculation.
+	// Ticker of the instrument.
+	// Required if Exchange/Token are not provided. This will be the preferred input going forward.
+	Ticker string `json:"ticker"`
+
+	// Exchange type.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Exchange ExchangeTypes `json:"exchange"`
+
+	// Token of the underlying instrument.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Token int `json:"token"`
+
+	// Type of transaction.
+	// Required.
+	TransactionType TransactionTypes `json:"transaction_type"`
+
+	// Type of product.
+	// Required.
+	Product ProductTypes `json:"product"`
+
+	// Type of variety.
+	// Required.
+	Variety VarietyTypes `json:"variety"`
+
+	// Quantity of the order.
+	// Required.
+	Quantity int `json:"quantity"`
+
+	// Price of the order.
+	// Required.
+	Price float64 `json:"price"`
+
+	// Old price of the order.
+	// Required.
+	OldPrice float64 `json:"old_price"`
+
+	// Old quantity of the order.
+	// Required.
+	OldQuantity int `json:"old_quantity"`
+
+	// Mode of margin calculation.
+	// Required.
+	Mode MarginModes `json:"mode"`
 }
 
 type BasketMarginOrder struct {
+	Ticker          string           `json:"ticker"`           // Required: Ticker of the instrument.
 	Exchange        ExchangeTypes    `json:"exchange"`         // Required: Exchange type.
 	Token           int              `json:"token"`            // Required: Token of the underlying instrument.
 	TransactionType TransactionTypes `json:"transaction_type"` // Required: Type of transaction.
@@ -74,8 +156,9 @@ type BasketMarginRequest struct {
 
 // ConvertPositionRequest represents a request to convert a position.
 type ConvertPositionRequest struct {
-	Exchange        ExchangeTypes    `json:"exchange"`         // Required: Exchange type.
-	Token           int              `json:"token"`            // Required: Token of the underlying instrument.
+	Ticker          string           `json:"ticker"`           // Required: Ticker of the instrument.
+	Exchange        ExchangeTypes    `json:"exchange"`         // Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Token           int              `json:"token"`            // Not needed if Ticker is provided. Deprecated: use Ticker instead.
 	TransactionType TransactionTypes `json:"transaction_type"` // Required: Type of transaction.
 	Quantity        int              `json:"quantity"`         // Required: Quantity of the position to convert.
 	OldProductType  ProductTypes     `json:"old_product"`      // Required: Old product type of the position.
@@ -94,20 +177,53 @@ type ModifyGttRequest struct {
 
 // PlaceGttRequest represents a request to place a Good 'til Triggered (GTT) order.
 type PlaceGttRequest struct {
-	Exchange         ExchangeTypes       `json:"exchange"`           // Required: Exchange type.
-	Token            int                 `json:"token"`              // Required: Token of the underlying instrument.
-	TransactionType  TransactionTypes    `json:"transaction_type"`   // Required: Type of transaction.
-	Variety          ValidityTypes       `json:"variety"`            // Optional: Type of variety. By default RL is considered. Accepted values: [RL,RL-MKT].
-	Quantity         *int                `json:"quantity"`           // Required: Quantity of the order.
-	TriggerPrice     *float64            `json:"trigger_price"`      // Required: Trigger price for the order.
-	Price            *float64            `json:"price"`              // Required: Price of the order.
-	OrderIdentifier  string              `json:"order_identifier"`   // Required: Identifier for the order.
-	GttTriggerType   GttTriggerType      `json:"gtt_trigger_type"`   // Required: Type of GTT trigger.
-	Product          ProductTypes        `json:"product"`            // Required: Type of product.
-	Stoploss         *PlaceGttLegRequest `json:"stoploss"`           // Optional: Stop loss leg of the GTT order.
-	Profit           *PlaceGttLegRequest `json:"profit"`             // Optional: Profit leg of the GTT order.
-	SingleTrailingSL *Trail              `json:"single_trailing_sl"` // Optional: Use when GttTriggerType is single.
-	TagIds           []int               `json:"tag_ids"`            // Required: IDs of tags associated with the order.
+	// Exchange type.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Exchange ExchangeTypes `json:"exchange"`
+
+	// Token of the underlying instrument.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Token int `json:"token"`
+
+	// Ticker of the instrument.
+	// Required if Exchange/Token are not provided. This will be the preferred input going forward.
+	Ticker string `json:"ticker"`
+
+	// Required: Type of transaction.
+	TransactionType TransactionTypes `json:"transaction_type"`
+
+	// Optional: Type of variety. By default RL is considered. Accepted values: [RL,RL-MKT].
+	Variety ValidityTypes `json:"variety"`
+
+	// Required: Quantity of the order.
+	Quantity *int `json:"quantity"`
+
+	// Required: Trigger price for the order.
+	TriggerPrice *float64 `json:"trigger_price"`
+
+	// Required: Price of the order.
+	Price *float64 `json:"price"`
+
+	// Required: Identifier for the order.
+	OrderIdentifier string `json:"order_identifier"`
+
+	// Required: Type of GTT trigger.
+	GttTriggerType GttTriggerType `json:"gtt_trigger_type"`
+
+	// Required: Type of product.
+	Product ProductTypes `json:"product"`
+
+	// Optional: Stop loss leg of the GTT order.
+	Stoploss *PlaceGttLegRequest `json:"stoploss"`
+
+	// Optional: Profit leg of the GTT order.
+	Profit *PlaceGttLegRequest `json:"profit"`
+
+	// Optional: Use when GttTriggerType is single.
+	SingleTrailingSL *Trail `json:"single_trailing_sl"`
+
+	// Required: IDs of tags associated with the order.
+	TagIds []int `json:"tag_ids"`
 }
 
 // PlaceGttLegRequest represents a leg of a Good 'til Triggered (GTT) order.
@@ -138,18 +254,56 @@ const (
 
 // PlaceIcebergOrderRequest represents a request to place an Iceberg order.
 type PlaceIcebergOrderRequest struct {
-	Exchange        ExchangeTypes    `json:"exchange"`         // Required: Exchange type.
-	Token           int              `json:"token"`            // Required: Token of the underlying instrument.
-	TransactionType TransactionTypes `json:"transaction_type"` // Required: Type of transaction.
-	Product         ProductTypes     `json:"product"`          // Required: Type of product.
-	Variety         VarietyTypes     `json:"variety"`          // Required: Type of variety.
-	Quantity        int              `json:"quantity"`         // Required: Quantity of the order.
-	Price           *float64         `json:"price"`            // Optional if market order. Price of the order.
-	TriggerPrice    float64          `json:"trigger_price"`    // Optional if not stoploss order. Trigger price for the order.
-	OrderIdentifier string           `json:"order_identifier"` // Optional: Your identifier for the order.
-	Validity        ValidityTypes    `json:"validity"`         // Required: Validity type for the order.
-	Legs            int              `json:"legs"`             // Required: Number of legs for the order.
-	TagIds          pq.Int32Array    `json:"tag_ids"`          // IDs of tags associated with the order.
+	// Ticker of the instrument.
+	// Required if Exchange/Token are not provided. This will be the preferred input going forward.
+	Ticker string `json:"ticker"`
+
+	// Exchange type.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Exchange ExchangeTypes `json:"exchange"`
+
+	// Token of the underlying instrument.
+	// Not needed if Ticker is provided. Deprecated: use Ticker instead.
+	Token int `json:"token"`
+
+	// Type of transaction.
+	// Required.
+	TransactionType TransactionTypes `json:"transaction_type"`
+
+	// Type of product.
+	// Required.
+	Product ProductTypes `json:"product"`
+
+	// Type of variety.
+	// Required.
+	Variety VarietyTypes `json:"variety"`
+
+	// Quantity of the order.
+	// Required.
+	Quantity int `json:"quantity"`
+
+	// Price of the order.
+	// Optional if market order.
+	Price *float64 `json:"price"`
+
+	// Trigger price for the order.
+	// Optional if not stoploss order.
+	TriggerPrice float64 `json:"trigger_price"`
+
+	// Your identifier for the order.
+	// Optional.
+	OrderIdentifier string `json:"order_identifier"`
+
+	// Validity type for the order.
+	// Required.
+	Validity ValidityTypes `json:"validity"`
+
+	// Number of legs for the order.
+	// Required.
+	Legs int `json:"legs"`
+
+	// IDs of tags associated with the order.
+	TagIds pq.Int32Array `json:"tag_ids"`
 }
 
 // FundWithdrawalRequest represents a request to withdraw funds.

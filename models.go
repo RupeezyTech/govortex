@@ -7,6 +7,7 @@ import (
 )
 
 type FullQuoteData struct {
+	Ticker            string      `json:"ticker"`
 	Exchange          string      `json:"exchange"`
 	Token             int         `json:"token"`
 	LastTradeTime     int         `json:"last_trade_time"`
@@ -28,6 +29,7 @@ type FullQuoteData struct {
 }
 
 type OhlcvQuoteData struct {
+	Ticker         string  `json:"ticker"`
 	Exchange       string  `json:"exchange"`
 	Token          int     `json:"token"`
 	LastTradePrice float64 `json:"last_trade_price"`
@@ -40,6 +42,7 @@ type OhlcvQuoteData struct {
 }
 
 type LtpQuoteData struct {
+	Ticker         string  `json:"ticker"`
 	Exchange       string  `json:"exchange"`
 	Token          int     `json:"token"`
 	LastTradePrice float64 `json:"last_trade_price"`
@@ -91,16 +94,11 @@ type FundDetails struct {
 	NetAvailable        float64 `json:"net_available"`
 }
 
-type ExchangeDetails struct {
-	Token    int    `json:"token"`
-	Exchange string `json:"exchange"`
-	Symbol   string `json:"symbol"`
-}
-
 type ExchangeDetail struct {
 	Token    int           `json:"token"`
 	Exchange ExchangeTypes `json:"exchange"`
 	Symbol   string        `json:"symbol"`
+	Ticker   string        `json:"ticker"`
 }
 
 type Holding struct {
@@ -135,6 +133,7 @@ type NetDayPositions struct {
 }
 
 type PositionItem struct {
+	Ticker                string        `json:"ticker"`
 	Exchange              ExchangeTypes `json:"exchange"`
 	Symbol                string        `json:"symbol"`
 	ExpiryDate            string        `json:"expiry_date"`
@@ -380,6 +379,7 @@ type OrderResponse struct {
 }
 
 type Trade struct {
+	Ticker          string           `json:"ticker"`
 	OrderID         string           `json:"order_id"`
 	Exchange        ExchangeTypes    `json:"exchange"`
 	Token           int              `json:"token"`
