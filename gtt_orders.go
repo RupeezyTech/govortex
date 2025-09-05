@@ -20,7 +20,7 @@ func (v *VortexApi) PlaceGttOrder(ctx context.Context, request PlaceGttRequest) 
 // ModifyGttOrder modifies an existing Good Till Trigger (GTT) order with the Vortex API.
 // It takes a context, a GTT order ID, and a ModifyGttRequest as input.
 // It returns an OrderResponse and an error.
-func (v *VortexApi) ModifyGttOrder(ctx context.Context, gtt_order_id string, request ModifyGttRequest) (*OrderResponse, error) {
+func (v *VortexApi) ModifyGttOrder(ctx context.Context, gtt_order_id string, request []ModifyGttRequest) (*OrderResponse, error) {
 	var resp OrderResponse
 	_, err := v.doJson(ctx, "PUT", fmt.Sprintf(URIModifyOrder, "gtt", gtt_order_id), request, nil, nil, &resp)
 	if err != nil {
