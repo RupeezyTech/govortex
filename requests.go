@@ -167,12 +167,12 @@ type ConvertPositionRequest struct {
 
 // ModifyGttRequest represents a request to modify a Good 'til Triggered (GTT) order.
 type ModifyGttRequest struct {
-	Id           uint          `json:"id"`            // Required: Identifier of the GTT order to modify.
-	TriggerPrice *float64      `json:"trigger_price"` // Required: New trigger price for the GTT order.
-	Price        *float64      `json:"price"`         // Required: New price for the GTT order.
-	Quantity     *int          `json:"quantity"`      // Required: New quantity for the GTT order.
-	Variety      ValidityTypes `json:"variety"`       // Required: Type of variety. Accepted values: [RL,RL-MKT].
-	Trail        *Trail        `json:"trail"`         // Optional: Trail information for the GTT order.
+	Id           uint         `json:"id"`            // Required: Identifier of the GTT order to modify.
+	TriggerPrice *float64     `json:"trigger_price"` // Required: New trigger price for the GTT order.
+	Price        *float64     `json:"price"`         // Required: New price for the GTT order.
+	Quantity     *int         `json:"quantity"`      // Required: New quantity for the GTT order.
+	Variety      VarietyTypes `json:"variety"`       // Required: Type of variety. Accepted values: [RL,RL-MKT].
+	Trail        *Trail       `json:"trail"`         // Optional: Trail information for the GTT order.
 }
 
 // PlaceGttRequest represents a request to place a Good 'til Triggered (GTT) order.
@@ -193,7 +193,7 @@ type PlaceGttRequest struct {
 	TransactionType TransactionTypes `json:"transaction_type"`
 
 	// Optional: Type of variety. By default RL is considered. Accepted values: [RL,RL-MKT].
-	Variety ValidityTypes `json:"variety"`
+	Variety VarietyTypes `json:"variety"`
 
 	// Required: Quantity of the order.
 	Quantity *int `json:"quantity"`
